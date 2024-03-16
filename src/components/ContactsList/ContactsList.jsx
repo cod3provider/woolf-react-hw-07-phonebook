@@ -1,13 +1,19 @@
-import { ReactComponent as Icon } from '../../icons/trash.svg';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getContacts, getFilter } from '../../store/selectors';
-import { deleteContact } from '../../store/contactsSlice';
-import s from './ContactList.module.css';
+import { selectContacts, selectFilter } from '../../store/selectors';
+import { deleteContact, fetchContacts } from '../../store/operations';
+import { ReactComponent as Icon } from '../../icons/trash.svg';
+import s from './ContactsList.module.css';
 
 const ContactsList = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
-  const filtered = useSelector(getFilter);
+  const contacts = useSelector(selectContacts);
+  const filtered = useSelector(selectFilter);
+
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   const getFilterContacts = () => {
     const filterNormalize = filtered.toLowerCase();
@@ -18,13 +24,17 @@ const ContactsList = () => {
     return contacts.filter(contact => contact.name.toLowerCase().includes(filterNormalize));
   };
 
+  const handleClick = id => {
+    dispatch(deleteContact(id))
+  }
+
   const filter = getFilterContacts();
 
   return (
     <>
       {contacts.length > 0 && (
         <ul className={s.list}>
-          {filter.map(({ id, name, number }) =>
+          {contacts.map(({ id, name, number }) =>
             <li className={s.item} key={id}>
               <p>
                 {name}:
@@ -32,7 +42,7 @@ const ContactsList = () => {
               <p>
                 {number}
               </p>
-              <button className={s.button} onClick={() => dispatch(deleteContact(id))}>
+              <button className={s.button} onClick={() => handleClick(id)}>
                 <Icon className={s.icon} />
               </button>
             </li>,
