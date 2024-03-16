@@ -8,7 +8,7 @@ const Filter = () => {
   const dispatch = useDispatch();
 
   const handleFilter = e => {
-    const {value} = e.target;
+    const { value } = e.target;
     dispatch(setFilter(value));
   };
 
