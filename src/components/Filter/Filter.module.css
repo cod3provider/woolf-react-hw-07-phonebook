@@ -2,7 +2,9 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+  margin: 20px auto 0;
   max-width: 300px;
+  font-size: 24px;
 }
 
 .input {
@@ -10,6 +12,6 @@
   padding: 4px 8px;
   border: 1px solid #b3deea;
   border-radius: 4px;
-  font-size: 18px;
+  font-size: 22px;
   color: #102356;
 }

@@ -7,6 +7,7 @@ import Filter from './Filter/Filter';
 import Container from './shared/Container/Container';
 import { useSelector } from 'react-redux';
 import { selectContacts, selectError, selectIsLoading } from '../store/selectors';
+import Message from './Message/Message';
 
 const App = () => {
   const contacts = useSelector(selectContacts);
@@ -32,9 +33,9 @@ const App = () => {
       />
       <h2>Contacts</h2>
       {contacts.length > 0 ?
-        <Filter /> : <p>You have no contacts</p>
+        <Filter /> : <Message text="You have no contacts" />
       }
-      {isLoading && !error && <p>...Loading</p>}
+      {isLoading && !error && <Message text="...Loading" />}
       <ContactsList />
     </Container>
   );
