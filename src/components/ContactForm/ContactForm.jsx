@@ -2,14 +2,15 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { nanoid } from 'nanoid';
 import { toast } from 'react-toastify';
-import { getContacts } from '../../store/selectors';
-import { createContact } from '../../store/contactsSlice';
+import { selectContacts } from '../../store/selectors';
+
 import s from './ContactForm.module.css';
+import { addContact } from '../../store/operations';
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({ name: '', number: '' });
 
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
 
   const handleChange = e => {
@@ -29,8 +30,7 @@ const ContactForm = () => {
       ?
       toast.warn(`${name} is already in contacts.`)
       :
-      dispatch(createContact({
-        id: nanoid(),
+      dispatch(addContact({
         name,
         number,
       }));
