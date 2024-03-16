@@ -34,7 +34,7 @@ const ContactsList = () => {
     <>
       {contacts.length > 0 && (
         <ul className={s.list}>
-          {contacts.map(({ id, name, number }) =>
+          {filter.map(({ id, name, number }) =>
             <li className={s.item} key={id}>
               <p>
                 {name}:
